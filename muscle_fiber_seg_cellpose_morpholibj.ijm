@@ -39,7 +39,7 @@ roiManager("Save", outputDir + newName + "_ROIs.zip");
 print(orgName + " analysis is done!");
 run("Equivalent Ellipse", "label=0-ext overlay overlay_0 image=" + orgName);
 
-//Create a flat image with ROIs and axes for worflow demo
+//Create a flat image with ROIs and axes to create a workflow demo
 selectImage(orgName);
 run("Duplicate...", "title=" + orgName + "_with_ROIs_and_axes");
 run("Show Overlay");
