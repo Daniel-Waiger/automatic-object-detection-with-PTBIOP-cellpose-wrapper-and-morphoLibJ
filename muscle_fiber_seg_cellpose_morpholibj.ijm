@@ -1,12 +1,7 @@
-/*
- * Automatic Starconvex shape detection with PTBIOP-cellpose wrapper and morphoLibJ
- * 
- * Made by: Daniel Waiger - Faculty of Agriculture, Food and Environment - HUJI
- * danielw@savion.huji.ac.il / daniel.waiger@mail.huji.ac.il / image.sc_ID: Daniel_Waiger
- * For: Noam Goldman - Faculty of Agriculture, Food and Environment - HUJI - Zehava Uni Lab
- * 
- * 
- */
+//Automatic Starconvex shape detection with PTBIOP-cellpose wrapper and morphoLibJ
+//Made by: Daniel Waiger - Faculty of Agriculture, Food and Environment - HUJI
+//danielw@savion.huji.ac.il / daniel.waiger@mail.huji.ac.il / image.sc_ID: Daniel_Waiger
+//For: Noam Goldman - Faculty of Agriculture, Food and Environment - HUJI - Zehava Uni Lab
 
 
 //Select an image and an output folder
@@ -21,7 +16,8 @@ newName = File.getNameWithoutExtension(orgName);
 run("Set Measurements...", "area fit display redirect=None decimal=3");
 
 //Cellpose parameters for object detection with GPU
-run("Cellpose Advanced", "diameter=50 cellproba_threshold=0.0 flow_threshold=0.4 anisotropy=1.0 diam_threshold=12.0 model=cyto2_omni nuclei_channel=0 cyto_channel=0 dimensionmode=2D stitch_threshold=-1.0 omni=false cluster=false additional_flags= ");
+shapeDiameter = getNumber("What is the estimated diameter of your objects?", 150 )
+run("Cellpose Advanced", "diameter=" + shapeDiameter + " cellproba_threshold=0.0 flow_threshold=0.4 anisotropy=1.0 diam_threshold=12.0 model=cyto2_omni nuclei_channel=0 cyto_channel=0 dimensionmode=2D stitch_threshold=-1.0 omni=false cluster=false additional_flags= ");
 
 
 //MorphoLibJ: cellpose result image and label processing commands
