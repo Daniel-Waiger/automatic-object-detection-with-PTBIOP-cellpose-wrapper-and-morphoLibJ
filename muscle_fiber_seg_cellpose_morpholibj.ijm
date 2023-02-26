@@ -33,11 +33,11 @@ run("3-3-2 RGB");
 saveAs("Results", outputDir + newName + "_Results.csv");
 roiManager("Save", outputDir + newName + "_ROIs.zip");
 print(orgName + " analysis is done!");
-run("Equivalent Ellipse", "label=0-ext overlay overlay_0 image=" + orgName);
+run("Equivalent Ellipse", "label=" + newName + "-cellpose-ext overlay overlay_0 image=" + orgName);
 
 //Create a flat image with ROIs and axes to create a workflow demo
 selectImage(orgName);
-run("Duplicate...", "title=" + orgName + "_with_ROIs_and_axes");
+run("Duplicate...", "title=" + newName + "_with_ROIs_and_axes");
 run("Show Overlay");
 run("From ROI Manager");
 run("Flatten");
@@ -48,3 +48,6 @@ saveAs("Tiff", outputDir + flatImage + ".tif");
 run("Close All");
 close("ROI Manager");
 close("Results");
+
+
+
