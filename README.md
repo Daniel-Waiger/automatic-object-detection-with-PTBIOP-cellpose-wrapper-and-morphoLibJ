@@ -1,2 +1,2 @@
-# automati-starconvex-shape-detection-with-PTBIOP-cellpose-wrapper-and-morphoLibJ
+# automatic-starconvex-shape-detection-with-PTBIOP-cellpose-wrapper-and-morphoLibJ
  
