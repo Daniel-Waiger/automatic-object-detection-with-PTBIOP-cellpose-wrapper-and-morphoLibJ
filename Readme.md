@@ -1,4 +1,4 @@
-# Explanation of IJM Code for Starconvex Shape Detection
+# IJM Code for Starconvex Shape Detection and Aanalysis with The BIOP Cellpose Wrapper and MorphoLibJ
 
 This IJM code is designed to automatically detect starconvex shapes using PTBIOP-cellpose wrapper and the morphoLibJ plugin.
 
