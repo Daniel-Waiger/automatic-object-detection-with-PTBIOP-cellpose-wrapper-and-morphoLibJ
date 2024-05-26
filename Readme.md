@@ -1,52 +1,85 @@
-# IJM Code for Starconvex Shape Detection and Aanalysis with The BIOP Cellpose Wrapper and MorphoLibJ
+# Shape Detection and Analysis for Muscle Fibers with PTBIOP Cellpose Wrapper and MorphoLibJ
 
-This IJM code is designed to automatically detect starconvex shapes using PTBIOP-cellpose wrapper and the morphoLibJ plugin.
+This repository contains an IJM script designed to automatically detect and analyze objects in images using the PTBIOP-Cellpose wrapper and the MorphoLibJ plugin.
 
+## Author
 
-Automatic Starconvex shape detection with PTBIOP-cellpose wrapper and morphoLibJ
-Made by: Daniel Waiger - Faculty of Agriculture, Food and Environment - HUJI
-Contact: danielw@savion.huji.ac.il / daniel.waiger@mail.huji.ac.il / image.sc_ID: Daniel_Waiger
-For: Noam Goldman - Faculty of Agriculture, Food and Environment - HUJI - Zehava Uni Lab
+- **Daniel Waiger**
+  - Faculty of Agriculture, Food and Environment, Hebrew University of Jerusalem (HUJI)
+  - Contact: [danielw@savion.huji.ac.il](mailto:danielw@savion.huji.ac.il) / [daniel.waiger@mail.huji.ac.il](mailto:daniel.waiger@mail.huji.ac.il)
+  - Image.sc ID: Daniel_Waiger
 
-This code automates the detection of star-convex-shaped objects in images using the PTBIOP-Cellpose wrapper and morphoLibJ plugin.
-The script prompts the user to select an input image and output folder, and then collects the image name and sets measurement parameters.
-The Cellpose advanced function is used to detect objects in the image, with GPU acceleration, and the resulting image is processed using morphoLibJ to remove border labels, convert the image to ROIs, and set measurements for area, fit, and display. The script also saves the results as a CSV file and ROIs zip file.
+## For
 
-The code then creates an equivalent ellipse for each detected object and overlays it on the original image. It also creates a flat image with ROIs and axes to demonstrate the workflow. Finally, the script closes all windows and results, ready for the next run.
+- **Noam Goldman**
+  - Faculty of Agriculture, Food and Environment, HUJI
+  - Zehava Uni Lab
 
-This code is useful for anyone who needs to detect and analyze star-convex-shaped objects in images. The Cellpose wrapper and morphoLibJ are powerful tools for object detection and processing, and this code streamlines the process of using them. Additionally, the script saves the results in a convenient format, making further analysis easier.
+## Overview
 
-## Select Image and Output Folder
-The user is prompted to select an input image and an output folder for the results.
+This IJM script provides a comprehensive workflow for detecting and analyzing star-convex shapes in biological images. The workflow includes:
+
+1. **Image and Output Folder Selection:** User selects the input image and output directory.
+2. **Image Name Collection:** The script collects the original image name and generates a new name for output files.
+3. **Parameter Selection:** The script sets measurement parameters (e.g., area, fit).
+4. **Object Detection with Cellpose:** User inputs the estimated diameter of objects, and the script sets the necessary parameters for object detection using Cellpose with GPU acceleration.
+5. **MorphoLibJ Processing:** The script processes Cellpose results using various MorphoLibJ commands.
+6. **Equivalent Ellipse Creation:** The script creates equivalent ellipses for detected objects and overlays them on the original image.
+7. **Demo Image Creation:** The script generates a flat image with ROIs and axes for demonstration purposes.
+8. **Cleanup:** The script closes all open windows and saves the results.
+
+## Prerequisites
+
+- Fiji (ImageJ) with the PTBIOP-Cellpose wrapper and MorphoLibJ plugin installed.
+- A suitable GPU for acceleration (optional but recommended).
+
+## Usage
+
+1. **Select Image and Output Folder**
+   - Run the script and select the input image and output folder when prompted.
+
+2. **Collect Image Name**
+   - The script will automatically collect the name of the original image.
+
+3. **Select Parameters to Measure**
+   - The script will set the measurement parameters.
+
+4. **Cellpose Parameters for Object Detection with GPU**
+   - Enter the estimated diameter of the objects in the image when prompted.
+
+5. **MorphoLibJ Processing**
+   - The script will process the Cellpose results using various commands.
+
+6. **Equivalent Ellipse Creation**
+   - The script will create and overlay equivalent ellipses on the original image.
+
+7. **Demo Image Creation**
+   - The script will generate a flat image with ROIs and axes for demonstration.
+
+8. **Cleanup**
+   - The script will close all open windows and save the results.
+
+## Example Code
+
+Below is an example of how the code is structured within the script:
+
 ```ijm
-//Select an image and an output folder
+// Example of selecting an image and output folder
 run("Open...");
 outputDir = getDirectory("Output Folder Selection");
-```
-## Collect Image Name
-The script then collects the name of the original image and creates a new name to be used for the output files.
-```ijm
-//Collecting image name
+
+// Collecting the image name
 orgName = getTitle();
 newName = File.getNameWithoutExtension(orgName);
-```
-## Select Parameters to Measure
-The script prompts the user to select which parameters to measure, such as area and fit.
-```ijm
-//Selecting parameters to measure
+
+// Setting measurement parameters
 run("Set Measurements...", "area fit display redirect=None decimal=3");
-```
-## Cellpose Parameters for Object Detection with GPU
-The script then prompts the user to enter the estimated diameter of the objects in the image and sets the necessary Cellpose parameters for object detection with GPU.
-```ijm
-//Cellpose parameters for object detection with GPU
-shapeDiameter = getNumber("What is the estimated diameter of your objects?", 150 )
+
+// Object detection with Cellpose
+shapeDiameter = getNumber("What is the estimated diameter of your objects?", 150);
 run("Cellpose Advanced", "diameter=" + shapeDiameter + " cellproba_threshold=0.0 flow_threshold=0.4 anisotropy=1.0 diam_threshold=12.0 model=cyto2_omni nuclei_channel=0 cyto_channel=0 dimensionmode=2D stitch_threshold=-1.0 omni=false cluster=false additional_flags= ");
-```
-## MorphoLibJ: Cellpose Result Image and Label Processing Commands
-The script then performs MorphoLibJ cellpose result image and label processing commands.
-```ijm
-//MorphoLibJ: cellpose result image and label processing commands
+
+// Processing with MorphoLibJ
 run("Extend Image Borders", "left=-6 right=-6 top=-6 bottom=-6 fill=Replicate");
 run("Remove Border Labels", "left right top bottom");
 run("Label image to ROIs", "rm=[RoiManager[size=766, visible=true]]");
@@ -59,16 +92,11 @@ run("3-3-2 RGB");
 saveAs("Results", outputDir + newName + "_Results.csv");
 roiManager("Save", outputDir + newName + "_ROIs.zip");
 print(orgName + " analysis is done!");
-```
 
-## Equivalent Ellipse Creation
-The macro creates an equivalent ellipse of the labeled objects and saves it as an overlay on the original image.
-```ijm
+// Creating equivalent ellipses
 run("Equivalent Ellipse", "label=" + newName + "-cellpose-ext overlay overlay_0 image=" + orgName);
-```
-## Demo Image Creation
-The macro creates a flat image with ROIs and axes to create a workflow demo and saves it as a TIFF file.
-```ijm
+
+// Creating a flat image for demo
 selectImage(orgName);
 run("Duplicate...", "title=" + newName + "_with_ROIs_and_axes");
 run("Show Overlay");
@@ -76,11 +104,8 @@ run("From ROI Manager");
 run("Flatten");
 flatImage = getTitle();
 saveAs("Tiff", outputDir + flatImage + ".tif");
-```
-## Closing Windows
-Finally, the macro closes all open windows, including the ROI Manager and Results.
-```ijm
+
+// Closing all windows
 run("Close All");
 close("ROI Manager");
 close("Results");
-```
