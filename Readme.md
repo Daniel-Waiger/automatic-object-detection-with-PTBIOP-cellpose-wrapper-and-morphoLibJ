@@ -109,3 +109,4 @@ saveAs("Tiff", outputDir + flatImage + ".tif");
 run("Close All");
 close("ROI Manager");
 close("Results");
+```
