@@ -1,6 +1,6 @@
 # Shape Detection and Analysis for Muscle Fibers with PTBIOP Cellpose Wrapper and MorphoLibJ
 
-This repository contains an IJM script designed to automatically detect and analyze objects in images using the PTBIOP-Cellpose wrapper and the MorphoLibJ plugin.
+This repository contains an IJM script designed to automatically detect and analyze objects in images using the PTBIOP-Cellpose wrapper and the MorphoLibJ plugin. As published in [A deep learning-based automated image analysis for histological evaluation of broiler pectoral muscle] (https://www.sciencedirect.com/science/article/pii/S0032579123003115?via%3Dihub) 
 
 ## Author
 
