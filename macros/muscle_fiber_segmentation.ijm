@@ -29,6 +29,10 @@ requires("1.54f");
 
 MACRO_VERSION = "2.0.0";
 
+// Outputs (e.g. <name>_labels.tif) would match the input filter on a re-run
+if (inputDir == outputDir)
+	exit("Please choose an output folder different from the input folder.");
+
 // ---------------------------------------------------------------------------
 // Run log: parameters and per-image calibration are written next to the results
 // ---------------------------------------------------------------------------

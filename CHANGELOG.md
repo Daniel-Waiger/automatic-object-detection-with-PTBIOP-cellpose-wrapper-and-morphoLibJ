@@ -18,6 +18,8 @@ New macro: `macros/muscle_fiber_segmentation.ijm`. The original is kept unchange
 - Output file names: `<name>_results.csv`, `<name>_rois.zip`, `<name>_labels.tif` (new),
   `run_log.txt` (new: parameters, ImageJ version, pixel size and fiber count per image).
 - Closes only the windows it opened; v1 ran `Close All`.
+- Refuses to run when the output folder is the input folder, so outputs such as
+  `<name>_labels.tif` are never re-processed as inputs on a later run.
 
 ### Fixed
 - QC overlay was shifted by the border margin (6 px up and left): edge removal cropped

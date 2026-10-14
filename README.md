@@ -108,7 +108,7 @@ MorphoLibJ 1.6.5, cellpose 3.1.1.1 (CPU, Linux), on synthetic test images
 | Parameter | Default | Meaning |
 |---|---|---|
 | Input folder | – | Folder with the images |
-| Output folder | – | Where results are written (existing files with the same name are overwritten) |
+| Output folder | – | Where results are written; must differ from the input folder. Existing files with the same name are overwritten |
 | File extension | `.tif` | Only files ending with this are processed |
 | Cellpose Python environment folder | – | Folder of the conda/venv environment with Cellpose installed |
 | Environment type | `conda` | `conda` or `venv`. On macOS/Linux always choose `conda`: the wrapper supports `venv` only on Windows, and with `conda` it simply runs `<environment folder>/bin/python`, so a venv folder works too |
