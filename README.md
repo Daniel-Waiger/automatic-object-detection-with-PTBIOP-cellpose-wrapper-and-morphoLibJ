@@ -11,6 +11,41 @@ Published in: Dayan J, Goldman N, Waiger D, Melkman-Zehavi T, Halevy O, Uni Z.
 broiler pectoral muscle.* Poultry Science 2023;102(8):102792.
 [doi:10.1016/j.psj.2023.102792](https://doi.org/10.1016/j.psj.2023.102792)
 
+![Workflow: (A) stained image, (B) Cellpose label mask, (C) labels to ROIs, (D) per-fiber measurements](docs/workflow_panel.webp)
+
+*Workflow figure from Dayan et al. 2023. (A) Picrosirius Red–Fast Green stained
+cross-section imaged on an EVOS FL microscope; (B) fiber label mask from the BIOP
+Cellpose wrapper; (C) labels converted to ROIs; (D) measurements per fiber
+(here: area 912.86 µm², diameter 26.87 µm).*
+
+## Why automate?
+
+Manual measurement of myofibers in stained sections is slow and laborious, which
+has limited studies to a few thousand fibers. Existing automated tools were developed
+mainly for mouse and human muscle, whose fibers are more uniform than the highly
+variable broiler breast muscle. This workflow was validated against manual
+measurement on broiler pectoral muscle (Dayan et al. 2023, stage 1: 14-day-old
+chicks, v1 macro):
+
+| | Manual (Fiji measuring tool) | Automated (this workflow) |
+|---|---|---|
+| Time per image | 120 min | 3 min |
+| 27 images | 54 h, 17,333 fibers | 1.4 h, 15,881 fibers |
+| 84 images | – | 4.2 h, 59,128 fibers |
+| Data sets (diameter + area) per hour | 321 | 22,687–26,279 (70–80× more) |
+| Mean lesser diameter | 22.86 µm | 23.58 µm (27 images), 22.84 µm (84 images) |
+| Coefficient of variation | 33.17% | 31.99% (27 images), 32.21% (84 images) |
+| Accuracy rate vs. manual | – | 96.84% (27 images), 99.91% (84 images) |
+
+- **Same accuracy, much faster:** diameter distributions from both methods are
+  nearly identical, while the automated run takes minutes instead of hours per image.
+- **Larger, more representative samples:** each cross-section is covered almost
+  entirely instead of a manually selected subset.
+- **Sensitive enough for experiments:** in stage 2 of the paper, 41,562 fibers from
+  control and in ovo HMTBa-fed chicks were analysed in under 1 h, and the
+  difference in fiber diameter (15.9 vs 15.14 µm) and area (325.99 vs 309.72 µm²)
+  was significant.
+
 ## Repository layout
 
 | Path | Content |
@@ -19,6 +54,7 @@ broiler pectoral muscle.* Poultry Science 2023;102(8):102792.
 | `legacy/muscle_fiber_seg_cellpose_morpholibj_v1.ijm` | Original macro as used in the 2023 paper, kept unchanged for reproducibility |
 | `CHANGELOG.md` | What changed between versions |
 | `CITATION.cff` | Citation metadata (GitHub shows a "Cite this repository" button) |
+| `docs/workflow_panel.webp` | Workflow figure from the paper |
 
 ## Workflow
 
@@ -85,7 +121,7 @@ MorphoLibJ 1.6.5, cellpose 3.1.1.1 (CPU, Linux), on synthetic test images
 | Use GPU | on | Adds `--use_gpu`; needs a CUDA-enabled PyTorch in the environment |
 | Edge margin | `6` | Fibers with any pixel within this many pixels of the edge are excluded |
 | Minimum fiber area | `100` pixels | Smaller objects are discarded. Cellpose labels can contain single stray pixels that would otherwise appear as extra 1-pixel "fibers" |
-| Fallback pixel size | `0.151515` µm/pixel | Used when the image has no micrometer calibration. Default = 50 µm / 330 px, the value used in the paper |
+| Fallback pixel size | `0.151515` µm/pixel | Used when the image has no micrometer calibration. Default = 50 µm / 330 px (6.6 px/µm), the value of the paper's images: EVOS FL Auto, 12 stitched ×60 fields |
 | Always use fallback pixel size | off | Ignore image metadata and always use the fallback value |
 
 **Check the pixel size.** The fallback value is correct only for the
