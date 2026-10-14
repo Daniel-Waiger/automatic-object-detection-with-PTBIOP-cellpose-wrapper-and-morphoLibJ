@@ -33,7 +33,7 @@ chicks, v1 macro):
 | 27 images | 54 h, 17,333 fibers | 1.4 h, 15,881 fibers |
 | 84 images | – | 4.2 h, 59,128 fibers |
 | Data sets (diameter + area) per hour | 321 | 22,687–26,279 (70–80× more) |
-| Mean lesser diameter | 22.86 µm | 23.58 µm (27 images), 22.84 µm (84 images) |
+| Mean lesser diameter (`Minor`) | 22.86 µm | 23.58 µm (27 images), 22.84 µm (84 images) |
 | Coefficient of variation | 33.17% | 31.99% (27 images), 32.21% (84 images) |
 | Accuracy rate vs. manual | – | 96.84% (27 images), 99.91% (84 images) |
 
@@ -145,9 +145,9 @@ Columns of `_results.csv` (lengths in µm, areas in µm²):
 |---|---|
 | `Label` | `<image>_labels.tif:<ROI name>`; the ROI name contains the Cellpose label ID |
 | `Area` | Cross-sectional area |
-| `Major`, `Minor`, `Angle` | Axes and angle (degrees) of the best-fitting ellipse (as in the paper) |
+| `Major`, `Minor`, `Angle` | Axes and angle (degrees) of the best-fitting ellipse. `Minor` is the fiber **diameter** reported in the paper ("lesser diameter") |
 | `Feret`, `FeretAngle`, `FeretX`, `FeretY` | Maximum caliper diameter, its angle and start point |
-| `MinFeret` | Minimum caliper diameter, the narrowest width of the fiber |
+| `MinFeret` | Minimum caliper diameter, the narrowest width of the fiber. Not the paper's diameter: to compare with published values, use `Minor` |
 | `Circ.`, `AR`, `Round`, `Solidity` | Shape descriptors: circularity, aspect ratio, roundness, solidity |
 
 Definitions: [ImageJ user guide – Set Measurements](https://imagej.net/ij/docs/guide/146-30.html#sub:Set-Measurements...).
