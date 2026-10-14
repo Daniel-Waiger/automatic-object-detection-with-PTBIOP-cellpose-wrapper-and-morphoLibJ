@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this macro, please cite the article below."
+title: "Muscle fiber segmentation with Cellpose and MorphoLibJ (Fiji macro)"
+authors:
+  - family-names: Waiger
+    given-names: Daniel
+    affiliation: "Center for Scientific Imaging, The Robert H. Smith Faculty of Agriculture, Food and Environment, The Hebrew University of Jerusalem"
+license: MIT
+repository-code: "https://github.com/Daniel-Waiger/automatic-object-detection-with-PTBIOP-cellpose-wrapper-and-morphoLibJ"
+version: 2.0.0
+preferred-citation:
+  type: article
+  title: "A deep learning-based automated image analysis for histological evaluation of broiler pectoral muscle"
+  authors:
+    - family-names: Dayan
+      given-names: Jonathan
+    - family-names: Goldman
+      given-names: Noam
+    - family-names: Waiger
+      given-names: Daniel
+    - family-names: Melkman-Zehavi
+      given-names: Tal
+    - family-names: Halevy
+      given-names: Orna
+    - family-names: Uni
+      given-names: Zehava
+  journal: "Poultry Science"
+  year: 2023
+  volume: 102
+  issue: 8
+  start: 102792
+  doi: "10.1016/j.psj.2023.102792"
